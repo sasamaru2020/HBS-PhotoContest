@@ -216,17 +216,112 @@
     }
     .message p + p { margin-top: 1em; }
     .theme-box {
-      display: grid;
-      align-content: center;
+      position: relative;
+      min-height: 460px;
+      padding: 0;
+      overflow: hidden;
       background: var(--navy);
       color: #fff;
     }
-    .theme-box span { color: rgba(255,255,255,.7); font-weight: 800; }
-    .theme-box strong {
+    .scene-carousel,
+    .scene-slides {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 460px;
+    }
+    .scene-carousel:focus-visible {
+      outline: 3px solid rgba(255, 255, 255, .88);
+      outline-offset: -8px;
+    }
+    .scene-slide {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .32s ease;
+    }
+    .scene-slide.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .scene-slide img {
+      width: 100%;
+      height: 100%;
+      min-height: 460px;
+      object-fit: cover;
+    }
+    .scene-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(16, 24, 39, .06), rgba(16, 24, 39, .64)),
+        linear-gradient(90deg, rgba(16, 24, 39, .46), transparent 58%);
+    }
+    .theme-caption {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      z-index: 2;
+    }
+    .theme-caption span {
+      color: rgba(255,255,255,.78);
+      font-weight: 800;
+    }
+    .theme-caption strong {
       display: block;
       margin-top: 12px;
       font-size: clamp(2rem, 5vw, 4.2rem);
       line-height: 1.08;
+    }
+    .scene-arrow {
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,.56);
+      border-radius: 999px;
+      background: rgba(16, 24, 39, .36);
+      color: #fff;
+      font-size: 2rem;
+      line-height: 1;
+      cursor: pointer;
+      transform: translateY(-50%);
+      backdrop-filter: blur(10px);
+    }
+    .scene-arrow:hover,
+    .scene-arrow:focus-visible {
+      background: rgba(255,255,255,.92);
+      color: var(--navy);
+      outline: none;
+    }
+    .scene-prev { left: 14px; }
+    .scene-next { right: 14px; }
+    .scene-dots {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 3;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .scene-dot {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,.52);
+      cursor: pointer;
+    }
+    .scene-dot.is-active {
+      width: 24px;
+      background: #fff;
     }
     .notice {
       margin-top: 22px;
@@ -287,6 +382,12 @@
       h1 { font-size: clamp(2.25rem, 15vw, 4.1rem); }
       section { padding: 56px 0; }
       .card, .summary { padding: 22px; }
+      .theme-box,
+      .scene-carousel,
+      .scene-slides,
+      .scene-slide img {
+        min-height: 380px;
+      }
     }
   </style>
 </head>
@@ -357,8 +458,46 @@
           <p>まだVRChatを知らない人に「私たちがいる世界はこれだ！！！」と思ってもらえるような写真を、ぜひ撮っていただければと思います。</p>
         </article>
         <article class="card theme-box">
-          <span>あなたの思う</span>
-          <strong>VRChatの<br>ワンシーンを。</strong>
+          <div class="scene-carousel" data-scene-carousel tabindex="0" aria-label="VRChatのワンシーン例">
+            <div class="scene-slides">
+              <figure class="scene-slide is-active" aria-hidden="false">
+                <img src="assets/gallery/vrchat-scene-1.jpg" alt="フレンドと顔を寄せたVRChatの写真例">
+                <figcaption class="theme-caption">
+                  <span>あなたの思う</span>
+                  <strong>VRChatの<br>ワンシーンを。</strong>
+                </figcaption>
+              </figure>
+              <figure class="scene-slide" aria-hidden="true">
+                <img src="assets/gallery/vrchat-scene-2.jpg" alt="青い空間で撮影した幻想的なVRChatの写真例">
+                <figcaption class="theme-caption">
+                  <span>近未来感も、日常も</span>
+                  <strong>自由な一枚で。</strong>
+                </figcaption>
+              </figure>
+              <figure class="scene-slide" aria-hidden="true">
+                <img src="assets/gallery/vrchat-scene-3.jpg" alt="たくさんのフレンドの写真が並ぶVRChatの写真例">
+                <figcaption class="theme-caption">
+                  <span>フレンドとの思い出も</span>
+                  <strong>大歓迎です。</strong>
+                </figcaption>
+              </figure>
+              <figure class="scene-slide" aria-hidden="true">
+                <img src="assets/gallery/vrchat-scene-4.jpg" alt="大きな虎とアバターが写るVRChatの冒険感のある写真例">
+                <figcaption class="theme-caption">
+                  <span>不思議な瞬間を</span>
+                  <strong>切り取ってください。</strong>
+                </figcaption>
+              </figure>
+            </div>
+            <button class="scene-arrow scene-prev" type="button" aria-label="前の写真へ">‹</button>
+            <button class="scene-arrow scene-next" type="button" aria-label="次の写真へ">›</button>
+            <div class="scene-dots" aria-label="写真を選択">
+              <button class="scene-dot is-active" type="button" aria-label="1枚目を表示" aria-current="true"></button>
+              <button class="scene-dot" type="button" aria-label="2枚目を表示"></button>
+              <button class="scene-dot" type="button" aria-label="3枚目を表示"></button>
+              <button class="scene-dot" type="button" aria-label="4枚目を表示"></button>
+            </div>
+          </div>
         </article>
       </div>
     </section>
@@ -442,5 +581,57 @@
       <span>本企画はVRChat、Amazonの公式企画ではありません。</span>
     </div>
   </footer>
+  <script>
+    (() => {
+      const carousel = document.querySelector("[data-scene-carousel]");
+      if (!carousel) return;
+
+      const slides = Array.from(carousel.querySelectorAll(".scene-slide"));
+      const dots = Array.from(carousel.querySelectorAll(".scene-dot"));
+      const prev = carousel.querySelector(".scene-prev");
+      const next = carousel.querySelector(".scene-next");
+      let current = 0;
+      let touchStartX = null;
+
+      const show = (index) => {
+        current = (index + slides.length) % slides.length;
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === current;
+          slide.classList.toggle("is-active", active);
+          slide.setAttribute("aria-hidden", active ? "false" : "true");
+        });
+        dots.forEach((dot, dotIndex) => {
+          const active = dotIndex === current;
+          dot.classList.toggle("is-active", active);
+          if (active) {
+            dot.setAttribute("aria-current", "true");
+          } else {
+            dot.removeAttribute("aria-current");
+          }
+        });
+      };
+
+      prev?.addEventListener("click", () => show(current - 1));
+      next?.addEventListener("click", () => show(current + 1));
+      dots.forEach((dot, index) => dot.addEventListener("click", () => show(index)));
+
+      carousel.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") show(current - 1);
+        if (event.key === "ArrowRight") show(current + 1);
+      });
+
+      carousel.addEventListener("touchstart", (event) => {
+        touchStartX = event.touches[0]?.clientX ?? null;
+      }, { passive: true });
+
+      carousel.addEventListener("touchend", (event) => {
+        if (touchStartX === null) return;
+        const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX;
+        const delta = touchEndX - touchStartX;
+        if (Math.abs(delta) > 42) show(current + (delta < 0 ? 1 : -1));
+        touchStartX = null;
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
