@@ -75,16 +75,36 @@
     .nav a { text-decoration: none; }
 
     .hero {
+      position: relative;
       min-height: calc(92svh - 68px);
       display: grid;
       align-items: center;
-      background:
-        linear-gradient(90deg, rgba(16, 24, 39, .82), rgba(16, 24, 39, .46) 52%, rgba(16, 24, 39, .16)),
-        linear-gradient(180deg, rgba(16, 24, 39, .08), rgba(16, 24, 39, .42)),
-        url("assets/gallery/vrchat-scene-3.jpg") center / cover;
+      overflow: hidden;
+      background: #121a2a;
       color: #fff;
     }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -28px;
+      background:
+        radial-gradient(circle at 18% 26%, rgba(255, 133, 129, .22), transparent 24rem),
+        radial-gradient(circle at 78% 18%, rgba(255, 215, 121, .18), transparent 24rem),
+        url("assets/gallery/vrchat-scene-3.jpg") center / cover;
+      filter: blur(18px) saturate(.92) brightness(.82);
+      transform: scale(1.06);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(16, 24, 39, .86), rgba(16, 24, 39, .58) 52%, rgba(16, 24, 39, .26)),
+        linear-gradient(180deg, rgba(16, 24, 39, .18), rgba(16, 24, 39, .56));
+    }
     .hero-inner {
+      position: relative;
+      z-index: 1;
       width: min(1120px, calc(100% - 32px));
       margin: 0 auto;
       padding: 12svh 0 10svh;
