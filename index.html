@@ -14,14 +14,14 @@
     :root {
       --ink: #172033;
       --soft: #5f6675;
-      --paper: #fff9f3;
+      --paper: #faf7f2;
       --panel: #ffffff;
-      --line: rgba(23, 32, 51, .13);
+      --line: rgba(23, 32, 51, .12);
       --navy: #14243c;
       --coral: #ff8581;
       --sun: #ffd779;
       --blue: #446f9f;
-      --shadow: 0 18px 48px rgba(33, 30, 45, .12);
+      --shadow: 0 18px 42px rgba(28, 32, 44, .10);
       --radius: 8px;
       font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", system-ui, sans-serif;
     }
@@ -35,6 +35,7 @@
       line-height: 1.85;
       letter-spacing: 0;
       text-rendering: optimizeLegibility;
+      overflow-x: hidden;
     }
     img { display: block; max-width: 100%; }
     a { color: inherit; }
@@ -43,8 +44,8 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 249, 243, .9);
+      border-bottom: 1px solid rgba(255,255,255,.18);
+      background: rgba(250, 247, 242, .86);
       backdrop-filter: blur(14px);
     }
     .header-inner {
@@ -74,44 +75,47 @@
     .nav a { text-decoration: none; }
 
     .hero {
-      min-height: calc(100svh - 68px);
+      min-height: calc(92svh - 68px);
       display: grid;
-      align-items: end;
+      align-items: center;
       background:
-        radial-gradient(circle at 74% 18%, rgba(255, 215, 121, .46), transparent 28rem),
-        radial-gradient(circle at 18% 24%, rgba(255, 133, 129, .24), transparent 24rem),
-        linear-gradient(135deg, #fff, #fff9f3 50%, #fff0e9);
+        linear-gradient(90deg, rgba(16, 24, 39, .82), rgba(16, 24, 39, .46) 52%, rgba(16, 24, 39, .16)),
+        linear-gradient(180deg, rgba(16, 24, 39, .08), rgba(16, 24, 39, .42)),
+        url("assets/gallery/vrchat-scene-3.jpg") center / cover;
+      color: #fff;
     }
     .hero-inner {
       width: min(1120px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 8svh 0 10svh;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
-      align-items: end;
-      gap: 36px;
+      padding: 12svh 0 10svh;
     }
     .eyebrow {
       display: inline-flex;
       margin: 0 0 18px;
       padding: 6px 12px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, .7);
-      color: var(--blue);
+      background: rgba(255, 255, 255, .16);
+      color: #fff;
       font-size: .92rem;
       font-weight: 900;
+      backdrop-filter: blur(12px);
     }
     h1 {
-      max-width: 820px;
+      max-width: 960px;
       margin: 0;
-      font-size: clamp(2.5rem, 7vw, 6.6rem);
-      line-height: 1;
+      color: #fff;
+      font-size: clamp(2.8rem, 6.7vw, 6.4rem);
+      line-height: .98;
       letter-spacing: 0;
+    }
+    .title-line {
+      display: block;
+      white-space: nowrap;
     }
     .hero p {
       max-width: 720px;
       margin: 24px 0 0;
-      color: var(--soft);
+      color: rgba(255,255,255,.86);
       font-size: clamp(1.02rem, 2vw, 1.25rem);
       font-weight: 700;
     }
@@ -132,38 +136,43 @@
       color: #fff;
       font-weight: 900;
       text-decoration: none;
-      box-shadow: 0 12px 28px rgba(20, 36, 60, .18);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
     }
     .button.sub {
-      background: #fff;
+      background: rgba(255,255,255,.92);
       color: var(--navy);
-      border: 1px solid var(--line);
-      box-shadow: 0 12px 28px rgba(20, 36, 60, .08);
+      border: 1px solid rgba(255,255,255,.5);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .12);
     }
-    .summary {
-      padding: 26px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, .84);
-      box-shadow: var(--shadow);
-    }
-    .summary img {
-      width: 56%;
-      margin: 0 auto 12px;
-      filter: drop-shadow(0 12px 20px rgba(20, 36, 60, .14));
-    }
-    .summary dl { margin: 0; }
-    .summary div {
+    .hero-meta {
+      max-width: 900px;
+      margin-top: 30px;
       display: grid;
-      grid-template-columns: 7em 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
-      padding: 12px 0;
-      border-top: 1px solid var(--line);
     }
-    .summary dt { color: var(--soft); font-weight: 800; }
-    .summary dd { margin: 0; font-weight: 900; }
+    .hero-meta div {
+      padding: 16px 18px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.13);
+      backdrop-filter: blur(14px);
+    }
+    .hero-meta span {
+      display: block;
+      color: rgba(255,255,255,.68);
+      font-size: .84rem;
+      font-weight: 900;
+    }
+    .hero-meta strong {
+      display: block;
+      margin-top: 4px;
+      color: #fff;
+      font-size: clamp(1.05rem, 2vw, 1.42rem);
+      line-height: 1.25;
+    }
 
-    section { padding: 78px 0; }
+    section { padding: 86px 0; }
     .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
     .kicker {
       color: var(--coral);
@@ -188,25 +197,55 @@
     .grid {
       margin-top: 28px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
     }
     .two { grid-template-columns: repeat(2, 1fr); }
+    .overview-section {
+      padding: 44px 0 82px;
+      background: #fff;
+    }
+    .overview-grid {
+      margin-top: 0;
+    }
     .card {
-      padding: 26px;
+      padding: 28px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--panel);
       box-shadow: var(--shadow);
     }
-    .card h3 { margin: 0 0 10px; color: var(--navy); font-size: 1.16rem; }
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 1.08rem;
+      line-height: 1.45;
+    }
     .card p { margin: 0; color: var(--soft); }
     .value {
       margin-top: 8px;
       color: var(--navy);
-      font-size: clamp(1.55rem, 3vw, 2.6rem);
+      font-size: clamp(1.55rem, 2.7vw, 2.45rem);
       line-height: 1.15;
       font-weight: 900;
+    }
+    .step-grid {
+      counter-reset: step;
+    }
+    .step-grid .card {
+      position: relative;
+      padding-top: 58px;
+    }
+    .step-grid .card::before {
+      counter-increment: step;
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      top: 22px;
+      left: 26px;
+      color: var(--coral);
+      font-size: .84rem;
+      font-weight: 900;
+      letter-spacing: .08em;
     }
     .theme {
       display: grid;
@@ -371,9 +410,8 @@
     @media (max-width: 900px) {
       .nav { display: none; }
       .hero { min-height: auto; }
-      .hero-inner, .theme, .grid, .two { grid-template-columns: 1fr; }
+      .hero-inner, .theme, .grid, .two, .hero-meta { grid-template-columns: 1fr; }
       .hero-inner { padding-top: 12svh; }
-      .summary { max-width: 480px; }
     }
     @media (max-width: 560px) {
       .brand img { width: 58px; }
@@ -381,7 +419,13 @@
       .hero-inner, .container { width: min(100% - 24px, 1120px); }
       h1 { font-size: clamp(2.25rem, 15vw, 4.1rem); }
       section { padding: 56px 0; }
-      .card, .summary { padding: 22px; }
+      .card { padding: 22px; }
+      .overview-section { padding: 28px 0 56px; }
+      .step-grid .card { padding-top: 54px; }
+      .step-grid .card::before {
+        top: 20px;
+        left: 22px;
+      }
       .theme-box,
       .scene-carousel,
       .scene-slides,
@@ -410,28 +454,23 @@
   <main>
     <section class="hero">
       <div class="hero-inner">
-        <div>
-          <span class="eyebrow">HBSを使ったアバターフォトコンを開催します</span>
-          <h1>私たちのメタバース！VRChat！！</h1>
-          <p>VRChatの中で出会った近未来感、日常、友情、冒険、幻想的な世界。あなたが「これが私たちのいる世界だ」と思う一枚を、写真で見せてください。</p>
-          <div class="actions">
-            <a class="button" href="https://x.com/hashtag/HobohyakuenPhoto" target="_blank" rel="noopener">#HobohyakuenPhoto を見る</a>
-            <a class="button sub" href="#entry">参加方法を確認</a>
-          </div>
+        <span class="eyebrow">HBSを使ったアバターフォトコンを開催します</span>
+        <h1><span class="title-line">私たちの</span><span class="title-line">メタバース！</span><span class="title-line">VRChat！！</span></h1>
+        <p>VRChatの中で出会った近未来感、日常、友情、冒険、幻想的な世界。あなたが「これが私たちのいる世界だ」と思う一枚を、写真で見せてください。</p>
+        <div class="actions">
+          <a class="button" href="https://x.com/hashtag/HobohyakuenPhoto" target="_blank" rel="noopener">#HobohyakuenPhoto を見る</a>
+          <a class="button sub" href="#entry">参加方法を確認</a>
         </div>
-        <aside class="summary">
-          <img src="assets/hbs-logo.png" alt="HBS">
-          <dl>
-            <div><dt>応募期間</dt><dd>2026.7.10 - 9.10</dd></div>
-            <div><dt>結果発表</dt><dd>2026.9.13</dd></div>
-            <div><dt>投稿タグ</dt><dd>#HobohyakuenPhoto</dd></div>
-          </dl>
-        </aside>
+        <div class="hero-meta" aria-label="開催概要">
+          <div><span>応募期間</span><strong>2026.7.10 - 9.10</strong></div>
+          <div><span>結果発表</span><strong>2026.9.13</strong></div>
+          <div><span>投稿タグ</span><strong>#HobohyakuenPhoto</strong></div>
+        </div>
       </div>
     </section>
 
-    <section>
-      <div class="container grid">
+    <section class="overview-section">
+      <div class="container grid overview-grid">
         <article class="card">
           <h3>開催 / 応募期間</h3>
           <p class="value">2026.7.10 - 9.10</p>
@@ -527,7 +566,7 @@
         <span class="kicker">Entry</span>
         <h2>参加方法</h2>
         <p class="lead">一言を添えての投稿も大歓迎です。</p>
-        <div class="grid">
+        <div class="grid step-grid">
           <article class="card">
             <h3>HBS Editorを使用したアバターで撮影する</h3>
             <p>被写体の中にHBS Editorを使用したアバターが1人いれば参加できます。</p>
