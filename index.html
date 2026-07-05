@@ -422,6 +422,15 @@
       font-weight: 900;
       text-decoration: none;
     }
+    .host-link {
+      color: var(--navy);
+      font-weight: 900;
+      text-decoration: none;
+      word-break: break-word;
+    }
+    .host-link:hover {
+      text-decoration: underline;
+    }
     footer {
       padding: 28px 0;
       background: #101827;
@@ -435,6 +444,14 @@
       justify-content: space-between;
       gap: 20px;
       flex-wrap: wrap;
+    }
+    footer a {
+      color: #fff;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 900px) {
@@ -494,6 +511,7 @@
         <p>VRChatの中で出会った近未来感、日常、友情、冒険、幻想的な世界。あなたが「これが私たちのいる世界だ」と思う一枚を、写真で見せてください。</p>
         <div class="actions">
           <a class="button" href="https://x.com/hashtag/HobohyakuenPhoto" target="_blank" rel="noopener">#HobohyakuenPhoto を見る</a>
+          <a class="button sub" href="https://x.com/sasamaru_vrc" target="_blank" rel="noopener">主催Xを見る</a>
           <a class="button sub" href="#entry">参加方法を確認</a>
         </div>
         <div class="hero-meta" aria-label="開催概要">
@@ -517,6 +535,10 @@
         <article class="card">
           <h3>X投稿タグ</h3>
           <p class="value tag-value">#HobohyakuenPhoto</p>
+        </article>
+        <article class="card">
+          <h3>主催X</h3>
+          <p><a class="host-link" href="https://x.com/sasamaru_vrc" target="_blank" rel="noopener">@sasamaru_vrc</a></p>
         </article>
       </div>
     </section>
@@ -645,6 +667,7 @@
         <h2>あなたの思うメタバースを、写真で。</h2>
         <p class="lead">近未来感、日常、友情、冒険、幻想的な世界、面白い瞬間。テーマのとらえ方は自由です。</p>
         <a class="hashtag" href="https://x.com/hashtag/HobohyakuenPhoto" target="_blank" rel="noopener">#HobohyakuenPhoto</a>
+        <a class="hashtag" href="https://x.com/sasamaru_vrc" target="_blank" rel="noopener">@sasamaru_vrc</a>
       </div>
     </section>
   </main>
@@ -652,6 +675,7 @@
   <footer>
     <div class="footer-inner">
       <span>ほぼ100円ショップ / HBS Editor</span>
+      <span><a href="https://x.com/sasamaru_vrc" target="_blank" rel="noopener">X @sasamaru_vrc</a></span>
       <span>本企画はVRChat、Amazonの公式企画ではありません。</span>
     </div>
   </footer>
