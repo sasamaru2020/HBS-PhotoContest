@@ -10,6 +10,9 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/hbs-logo.png">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #172033;
@@ -20,10 +23,14 @@
       --navy: #14243c;
       --coral: #ff8581;
       --sun: #ffd779;
+      --mint: #76cfc6;
+      --cocoa: #a98776;
       --blue: #446f9f;
       --shadow: 0 18px 42px rgba(28, 32, 44, .10);
       --radius: 8px;
-      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", system-ui, sans-serif;
+      --font-body: "Zen Maru Gothic", "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
+      --font-display: "M PLUS Rounded 1c", "Zen Maru Gothic", "Yu Gothic", system-ui, sans-serif;
+      font-family: var(--font-body);
     }
 
     * { box-sizing: border-box; }
@@ -34,6 +41,7 @@
       background: var(--paper);
       line-height: 1.85;
       letter-spacing: 0;
+      font-feature-settings: "palt" 1;
       text-rendering: optimizeLegibility;
       overflow-x: hidden;
     }
@@ -44,8 +52,8 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      border-bottom: 1px solid rgba(255,255,255,.18);
-      background: rgba(250, 247, 242, .86);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 250, 244, .92);
       backdrop-filter: blur(14px);
     }
     .header-inner {
@@ -61,10 +69,33 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      min-width: 0;
       font-weight: 900;
       text-decoration: none;
     }
-    .brand img { width: 76px; }
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .brand-shop-logo {
+      width: 136px;
+      max-width: 32vw;
+      mix-blend-mode: multiply;
+    }
+    .brand-hbs-logo {
+      width: 56px;
+      height: 44px;
+      object-fit: contain;
+      padding: 5px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+    .brand span:last-child {
+      white-space: nowrap;
+    }
     .nav {
       display: flex;
       gap: 18px;
@@ -73,60 +104,78 @@
       font-weight: 800;
     }
     .nav a { text-decoration: none; }
+    .nav-cta {
+      padding: 8px 11px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #fff;
+    }
 
     .hero {
       position: relative;
-      min-height: calc(92svh - 68px);
+      min-height: clamp(620px, calc(78svh - 68px), 780px);
       display: grid;
       align-items: center;
       overflow: hidden;
-      background: #121a2a;
-      color: #fff;
+      background: var(--paper);
+      color: var(--ink);
     }
     .hero::before {
       content: "";
       position: absolute;
       inset: -28px;
       background:
-        radial-gradient(circle at 18% 26%, rgba(255, 133, 129, .22), transparent 24rem),
-        radial-gradient(circle at 78% 18%, rgba(255, 215, 121, .18), transparent 24rem),
+        radial-gradient(circle at 18% 26%, rgba(255, 133, 129, .18), transparent 24rem),
+        radial-gradient(circle at 78% 18%, rgba(255, 215, 121, .20), transparent 24rem),
         url("assets/gallery/vrchat-scene-3.jpg") center / cover;
-      filter: blur(18px) saturate(.92) brightness(.82);
-      transform: scale(1.06);
+      filter: blur(10px) saturate(1.02) brightness(1.08);
+      transform: scale(1.04);
+      opacity: .52;
     }
     .hero::after {
       content: "";
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, rgba(16, 24, 39, .86), rgba(16, 24, 39, .58) 52%, rgba(16, 24, 39, .26)),
-        linear-gradient(180deg, rgba(16, 24, 39, .18), rgba(16, 24, 39, .56));
+        radial-gradient(circle at 74% 24%, rgba(255, 214, 110, .24), transparent 26rem),
+        linear-gradient(90deg, rgba(250, 247, 242, .96), rgba(250, 247, 242, .86) 48%, rgba(250, 247, 242, .55)),
+        linear-gradient(180deg, rgba(255, 255, 255, .18), rgba(250, 247, 242, .84));
     }
     .hero-inner {
       position: relative;
       z-index: 1;
       width: min(1120px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 12svh 0 10svh;
+      padding: 72px 0 62px;
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(340px, .78fr);
+      gap: 46px;
+      align-items: center;
+    }
+    .hero-copy {
+      min-width: 0;
     }
     .eyebrow {
       display: inline-flex;
       margin: 0 0 18px;
       padding: 6px 12px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, .16);
-      color: #fff;
+      background: rgba(255, 255, 255, .78);
+      color: var(--ink);
       font-size: .92rem;
       font-weight: 900;
       backdrop-filter: blur(12px);
+      box-shadow: 3px 4px 0 rgba(255, 215, 121, .55);
     }
     h1 {
       max-width: 960px;
       margin: 0;
-      color: #fff;
+      color: var(--ink);
       font-size: clamp(2.8rem, 6.7vw, 6.4rem);
       line-height: .98;
       letter-spacing: 0;
+      font-family: var(--font-display);
+      text-shadow: 0 5px 0 rgba(255, 255, 255, .64);
     }
     .title-line {
       display: block;
@@ -135,9 +184,15 @@
     .hero p {
       max-width: 720px;
       margin: 24px 0 0;
-      color: rgba(255,255,255,.86);
+      color: var(--soft);
       font-size: clamp(1.02rem, 2vw, 1.25rem);
       font-weight: 700;
+      word-break: normal;
+      line-break: strict;
+    }
+    .hero p span,
+    .lead span {
+      display: block;
     }
     .actions {
       margin-top: 30px;
@@ -152,46 +207,107 @@
       align-items: center;
       justify-content: center;
       padding: 0 20px;
+      border: 2px solid var(--ink);
       border-radius: var(--radius);
-      background: var(--navy);
-      color: #fff;
+      background: var(--coral);
+      color: var(--ink);
       font-weight: 900;
       text-decoration: none;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
-      overflow-wrap: anywhere;
+      box-shadow: 4px 4px 0 var(--ink);
+      overflow-wrap: normal;
+      word-break: keep-all;
     }
     .button.sub {
       background: rgba(255,255,255,.92);
       color: var(--navy);
-      border: 1px solid rgba(255,255,255,.5);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, .12);
+      border: 2px solid var(--ink);
+      box-shadow: 4px 4px 0 rgba(255, 215, 121, .72);
     }
     .hero-meta {
       max-width: 900px;
       margin-top: 30px;
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
     .hero-meta div {
       padding: 16px 18px;
-      border: 1px solid rgba(255,255,255,.22);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255,255,255,.13);
+      background: rgba(255,255,255,.86);
       backdrop-filter: blur(14px);
+      box-shadow: 3px 4px 0 rgba(24, 39, 58, .07);
+      min-width: 0;
+    }
+    .hero-meta div:last-child {
+      grid-column: 1 / -1;
     }
     .hero-meta span {
       display: block;
-      color: rgba(255,255,255,.68);
+      color: var(--coral);
       font-size: .84rem;
       font-weight: 900;
     }
     .hero-meta strong {
       display: block;
       margin-top: 4px;
-      color: #fff;
-      font-size: clamp(1.05rem, 2vw, 1.42rem);
+      color: var(--ink);
+      font-size: clamp(1rem, 1.7vw, 1.28rem);
       line-height: 1.25;
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+    .hero-gallery {
+      position: relative;
+      min-height: 520px;
+      align-self: stretch;
+    }
+    .hero-photo {
+      position: absolute;
+      overflow: hidden;
+      margin: 0;
+      border: 2px solid var(--ink);
+      border-radius: calc(var(--radius) + 4px);
+      background: #fff;
+      box-shadow: var(--shadow), 8px 8px 0 rgba(255, 215, 121, .62);
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-photo-main {
+      inset: 22px 0 82px 28px;
+      transform: rotate(2deg);
+    }
+    .hero-photo-sub-a {
+      width: 48%;
+      height: 178px;
+      left: 0;
+      bottom: 8px;
+      transform: rotate(-4deg);
+      box-shadow: var(--shadow), 7px 7px 0 rgba(255, 133, 129, .5);
+    }
+    .hero-photo-sub-b {
+      width: 42%;
+      height: 152px;
+      right: 18px;
+      top: 4px;
+      transform: rotate(5deg);
+      box-shadow: var(--shadow), 7px 7px 0 rgba(118, 207, 198, .44);
+    }
+    .hero-photo figcaption {
+      position: absolute;
+      left: 14px;
+      bottom: 12px;
+      max-width: calc(100% - 28px);
+      padding: 8px 10px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.86);
+      color: var(--ink);
+      font-size: .82rem;
+      font-weight: 900;
+      box-shadow: 3px 4px 0 rgba(24,39,58,.08);
     }
 
     section { padding: 86px 0; }
@@ -215,6 +331,7 @@
       margin-top: 16px;
       color: var(--soft);
       font-size: 1.06rem;
+      overflow-wrap: anywhere;
     }
     .grid {
       margin-top: 28px;
@@ -224,11 +341,26 @@
     }
     .two { grid-template-columns: repeat(2, 1fr); }
     .overview-section {
-      padding: 44px 0 82px;
-      background: #fff;
+      padding: 54px 0 78px;
+      background:
+        linear-gradient(180deg, #fff, rgba(255, 248, 239, .72));
+      border-top: 1px solid rgba(24, 39, 58, .08);
+    }
+    .overview-intro {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+      gap: 18px;
+      align-items: end;
+    }
+    .overview-intro h2 {
+      margin-top: 6px;
+    }
+    .overview-intro .lead {
+      margin: 0;
     }
     .overview-grid {
-      margin-top: 0;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 24px;
     }
     .card {
       min-width: 0;
@@ -245,6 +377,14 @@
       line-height: 1.45;
     }
     .card p { margin: 0; color: var(--soft); }
+    .card .small {
+      color: var(--soft);
+      font-size: .94rem;
+      line-height: 1.7;
+    }
+    .card .small span {
+      display: block;
+    }
     .value {
       max-width: 100%;
       margin-top: 8px;
@@ -286,10 +426,10 @@
     .message p + p { margin-top: 1em; }
     .theme-box {
       position: relative;
-      min-height: 460px;
+      min-height: 430px;
       padding: 0;
       overflow: hidden;
-      background: var(--navy);
+      background: #fff;
       color: #fff;
     }
     .scene-carousel,
@@ -318,7 +458,7 @@
     .scene-slide img {
       width: 100%;
       height: 100%;
-      min-height: 460px;
+      min-height: 430px;
       object-fit: cover;
     }
     .scene-slide::after {
@@ -326,8 +466,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(16, 24, 39, .06), rgba(16, 24, 39, .64)),
-        linear-gradient(90deg, rgba(16, 24, 39, .46), transparent 58%);
+        linear-gradient(180deg, rgba(16, 24, 39, .02), rgba(16, 24, 39, .34)),
+        linear-gradient(90deg, rgba(16, 24, 39, .28), transparent 58%);
     }
     .theme-caption {
       position: absolute;
@@ -335,6 +475,12 @@
       right: 24px;
       bottom: 24px;
       z-index: 2;
+      width: min(520px, calc(100% - 48px));
+      padding: 18px 20px;
+      border-radius: var(--radius);
+      background: rgba(20, 36, 60, .82);
+      box-shadow: 6px 6px 0 rgba(255, 215, 121, .7);
+      backdrop-filter: blur(10px);
     }
     .theme-caption span {
       color: rgba(255,255,255,.78);
@@ -342,8 +488,8 @@
     }
     .theme-caption strong {
       display: block;
-      margin-top: 12px;
-      font-size: clamp(2rem, 5vw, 4.2rem);
+      margin-top: 8px;
+      font-size: clamp(1.8rem, 4.2vw, 3.6rem);
       line-height: 1.08;
     }
     .scene-arrow {
@@ -401,7 +547,9 @@
       color: #6a4146;
     }
     .closing {
-      background: var(--navy);
+      background:
+        linear-gradient(135deg, rgba(255, 133, 129, .16), rgba(255, 215, 121, .22)),
+        var(--ink);
       color: #fff;
       text-align: center;
     }
@@ -421,6 +569,7 @@
       font-size: clamp(1.2rem, 3vw, 1.8rem);
       font-weight: 900;
       text-decoration: none;
+      box-shadow: 4px 4px 0 var(--sun);
     }
     .host-link {
       color: var(--navy);
@@ -457,14 +606,46 @@
     @media (max-width: 900px) {
       .nav { display: none; }
       .hero { min-height: auto; }
-      .hero-inner, .theme, .grid, .two, .hero-meta { grid-template-columns: 1fr; }
-      .hero-inner { padding-top: 12svh; }
+      .hero-inner, .theme, .grid, .two, .hero-meta, .overview-intro { grid-template-columns: 1fr; }
+      .hero-inner { padding-top: 54px; }
+      .hero-gallery {
+        display: block;
+        min-height: clamp(220px, 62vw, 340px);
+        margin-top: 12px;
+      }
+      .hero-photo {
+        display: none;
+      }
+      .hero-photo-main {
+        display: block;
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: clamp(220px, 62vw, 340px);
+        transform: none;
+      }
+      .hero-photo-main img {
+        height: 100%;
+      }
     }
     @media (max-width: 560px) {
-      .brand img { width: 58px; }
+      .brand-shop-logo { width: 104px; }
+      .brand-hbs-logo { width: 48px; height: 38px; }
       .brand span { font-size: .9rem; }
-      .hero-inner, .container { width: min(100% - 24px, 1120px); }
+      .hero-inner, .container { width: min(1120px, calc(100% - 40px)); }
       h1 { font-size: clamp(2.15rem, 12vw, 3.25rem); }
+      .hero p {
+        font-size: .98rem;
+        line-height: 1.9;
+      }
+      .hero p,
+      .lead,
+      .card p {
+        white-space: normal;
+        word-break: normal;
+        line-break: strict;
+        overflow-wrap: normal;
+      }
       .actions {
         flex-direction: column;
         align-items: stretch;
@@ -491,7 +672,10 @@
   <header class="header">
     <div class="header-inner">
       <a class="brand" href="./index.html">
-        <img src="assets/hobohyakuen-shop-logo.png" alt="ほぼ100円ショップ">
+        <span class="brand-logos">
+          <img class="brand-shop-logo" src="assets/hobohyakuen-shop-logo.png" alt="ほぼ100円ショップ">
+          <img class="brand-hbs-logo" src="assets/hbs-logo.png" alt="HBS">
+        </span>
         <span>HBS Avatar Photo Contest</span>
       </a>
       <nav class="nav">
@@ -499,6 +683,7 @@
         <a href="#prize">賞品</a>
         <a href="#entry">参加方法</a>
         <a href="#rules">規定</a>
+        <a class="nav-cta" href="#entry">応募する</a>
       </nav>
     </div>
   </header>
@@ -506,39 +691,75 @@
   <main>
     <section class="hero">
       <div class="hero-inner">
-        <span class="eyebrow">HBSを使ったアバターフォトコンを開催します</span>
-        <h1><span class="title-line">私たちの</span><span class="title-line">メタバース！</span><span class="title-line">VRChat！！</span></h1>
-        <p>VRChatの中で出会った近未来感、日常、友情、冒険、幻想的な世界。あなたが「これが私たちのいる世界だ」と思う一枚を、写真で見せてください。</p>
-        <div class="actions">
-          <a class="button" href="https://x.com/hashtag/HobohyakuenPhoto" target="_blank" rel="noopener">#HobohyakuenPhoto を見る</a>
-          <a class="button sub" href="https://x.com/sasamaru_vrc" target="_blank" rel="noopener">主催Xを見る</a>
-          <a class="button sub" href="#entry">参加方法を確認</a>
+        <div class="hero-copy">
+          <span class="eyebrow">HBSを使ったアバターフォトコンを開催します</span>
+          <h1><span class="title-line">私たちの</span><span class="title-line">メタバース！</span><span class="title-line">VRChat！！</span></h1>
+          <p>
+            <span>HBSで整えた肌で、あなたのVRChatを一枚に。</span>
+            <span>近未来感、日常、友情、冒険、幻想的な世界。</span>
+            <span>あなたが「これが私たちのいる世界だ」と思う、</span>
+            <span>その写真を見せてください。</span>
+          </p>
+          <div class="actions">
+            <a class="button" href="https://x.com/intent/tweet?hashtags=HobohyakuenPhoto" target="_blank" rel="noopener">Xで投稿して参加</a>
+            <a class="button sub" href="#entry">参加方法を確認</a>
+            <a class="button sub" href="https://x.com/hashtag/HobohyakuenPhoto" target="_blank" rel="noopener">投稿を見る</a>
+          </div>
+          <div class="hero-meta" aria-label="開催概要">
+            <div><span>応募期間</span><strong>2026.7.10 - 9.10</strong></div>
+            <div><span>結果発表</span><strong>2026.9.13</strong></div>
+            <div><span>投稿タグ</span><strong>#HobohyakuenPhoto</strong></div>
+          </div>
         </div>
-        <div class="hero-meta" aria-label="開催概要">
-          <div><span>応募期間</span><strong>2026.7.10 - 9.10</strong></div>
-          <div><span>結果発表</span><strong>2026.9.13</strong></div>
-          <div><span>投稿タグ</span><strong>#HobohyakuenPhoto</strong></div>
+        <div class="hero-gallery" aria-label="VRChatフォトコンのイメージ">
+          <figure class="hero-photo hero-photo-main">
+            <img src="assets/gallery/vrchat-scene-3.jpg" alt="VRChatで撮影された複数の写真が並ぶワンシーン">
+          </figure>
+          <figure class="hero-photo hero-photo-sub-a" aria-hidden="true">
+            <img src="assets/gallery/vrchat-scene-1.jpg" alt="">
+          </figure>
+          <figure class="hero-photo hero-photo-sub-b" aria-hidden="true">
+            <img src="assets/gallery/vrchat-scene-4.jpg" alt="">
+          </figure>
         </div>
       </div>
     </section>
 
-    <section class="overview-section">
+    <section class="overview-section" aria-label="応募前に見る要点">
+      <div class="container overview-intro">
+        <div>
+          <span class="kicker">Quick guide</span>
+          <h2>応募前に見るところ</h2>
+        </div>
+        <p class="lead">
+          <span>HBS Editorを使ったアバターが</span>
+          <span>写っていれば参加できます。</span>
+          <span>あとは、好きなVRChatの一瞬を撮って、</span>
+          <span>Xに投稿するだけです。</span>
+        </p>
+      </div>
       <div class="container grid overview-grid">
         <article class="card">
-          <h3>開催 / 応募期間</h3>
-          <p class="value">2026.7.10 - 9.10</p>
+          <h3>応募期間</h3>
+          <p class="value">7.10 - 9.10</p>
+          <p class="small">2026年開催です。</p>
         </article>
         <article class="card">
-          <h3>結果発表</h3>
-          <p class="value">2026.9.13</p>
+          <h3>参加条件</h3>
+          <p class="small">
+            <span>HBS Editorを使用したアバターが、</span>
+            <span>被写体に1人以上写っていること。</span>
+          </p>
         </article>
         <article class="card">
-          <h3>X投稿タグ</h3>
+          <h3>投稿タグ</h3>
           <p class="value tag-value">#HobohyakuenPhoto</p>
+          <p class="small"><span>一言を添えての投稿も歓迎です。</span></p>
         </article>
         <article class="card">
           <h3>主催X</h3>
           <p><a class="host-link" href="https://x.com/sasamaru_vrc" target="_blank" rel="noopener">@sasamaru_vrc</a></p>
+          <p class="small"><span>告知やお知らせはこちらから。</span></p>
         </article>
       </div>
     </section>
@@ -598,26 +819,6 @@
       </div>
     </section>
 
-    <section id="prize">
-      <div class="container">
-        <span class="kicker">Prize</span>
-        <h2>賞品</h2>
-        <p class="lead">入賞された方にはAmazonギフトカードをお送りします。</p>
-        <div class="grid two">
-          <article class="card">
-            <h3>最優秀賞 / 1名</h3>
-            <p class="value">10,000円分</p>
-            <p>Amazonギフトカード</p>
-          </article>
-          <article class="card">
-            <h3>審査員賞 / 3名</h3>
-            <p class="value">5,000円分</p>
-            <p>Amazonギフトカード</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section id="entry">
       <div class="container">
         <span class="kicker">Entry</span>
@@ -635,6 +836,26 @@
           <article class="card">
             <h3>規定を確認する</h3>
             <p>下記の規定を守れる方が対象です。投稿前に一度だけ確認をお願いします。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="prize">
+      <div class="container">
+        <span class="kicker">Prize</span>
+        <h2>賞品</h2>
+        <p class="lead">入賞された方にはAmazonギフトカードをお送りします。</p>
+        <div class="grid two">
+          <article class="card">
+            <h3>最優秀賞 / 1名</h3>
+            <p class="value">10,000円分</p>
+            <p>Amazonギフトカード</p>
+          </article>
+          <article class="card">
+            <h3>審査員賞 / 3名</h3>
+            <p class="value">5,000円分</p>
+            <p>Amazonギフトカード</p>
           </article>
         </div>
       </div>
